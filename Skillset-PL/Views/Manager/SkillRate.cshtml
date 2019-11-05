@@ -1,0 +1,104 @@
+﻿﻿@using Common.Extensions
+@model PagedList.IPagedList<Skillset_PL.ViewModels.StaffSkills>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+@{
+    Layout = "~/Views/Manager/_ManagerLayout.cshtml";
+    ViewBag.Title = "Skills";
+}
+
+<script src="~/Scripts/Skill.js"></script>
+<div class="panel-group">
+    <div class="panel panel-success" style="border-color:#2a3f54;">
+        <div class="panel-body">
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label class="control-label col-sm-6" style="float:left;display:block;text-align:left">Employee Code : @(ViewBag.Code)</label>
+                    <label class="control-label col-sm-6" style="float:left;display:block;text-align:left;">  Employee Name : @(ViewBag.Name) </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@if (Model.Count() > 0)
+{
+    <br />
+        <div class="panel panel-default">
+            <table class="table table-hover table-responsive size-response">
+                <thead style="background-color:#2a3f54;color:white">
+                    <tr>
+                        <th>
+                            @Html.DisplayName("Skill")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Rating")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Rated On")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Notes")
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td data-title="Skill">
+                                @Html.DisplayFor(modelItem => item.Skill)
+                            </td>
+                            <td data-title="Rating">
+                                <div data-tooltip="@(item.RatingNote)" data-tooltip-position="bottom">
+
+                                    @for (var i = 1; i <= item.Rating; i++)
+                                    {
+                                        <span class="starGlowTable"></span>
+                                    }
+                                    @for (var i = (item.Rating + 1); i <= 5; i++)
+                                    {
+                                        <span class="starFadeTable"></span>
+                                    }
+                                </div>
+                            </td>
+                            <td data-title="Rated On">
+                                @Html.DisplayFor(modelItem => item.RatingDate)
+                            </td>
+                            <td data-title="Notes">
+                                @Html.DisplayWithBreaksFor(modelItem => item.Note)
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+}
+else
+{
+    <br />
+            <div class="alert alert-warning" style="color:#2a3f54;background-color:whitesmoke;border-color:#2a3f54">
+
+                <strong>No Skill Ratings!</strong>
+                <br />Employee has no rated skills.
+
+            </div>
+}
+
+
+            Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+
+            @Html.PagedListPager(Model, page => Url.Action("SkillRate",
+    new
+    {
+        code = ViewBag.Code,
+        name = ViewBag.Name,
+        page
+    }))
+
+            <br />
+            <br />
+            <span>
+                <a href="javascript:history.back()" name="Back" value="Back" class="btn btn-primary" style="background-color:whitesmoke;color:#2a3f54; border-color:#2a3f54">Back</a>
+            </span>

@@ -1,0 +1,304 @@
+﻿.nav-side-menu {
+
+    overflow: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    background-color: #2a3f54;
+    position: fixed;
+    width: 70px;
+    top: 0px;
+    height: 100%;
+    color: #E7E7E7;
+    left: 0px;
+}
+
+/* Logo */
+.nav_title {
+    background-color: #2a3f54;
+    float: left;
+    height: 57px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    border: 0;
+}
+
+.side-title {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    display: block;
+    height: 55px;
+    margin-top: 12px;
+    padding-left: 4px;
+    color: #E7E7E7 !important;
+}
+
+.side-title .fa {
+        font-size: 25px;
+        font-color: #E7E7E7;
+}
+
+.side-title i {
+        border-radius: 50%;
+        border: 1px solid #E7E7E7;
+        padding: 10px;
+}
+
+/* Side menu first list item*/
+.top-dashboard {
+    margin-top: 65px;
+    padding: 10px 5px !important;
+    color: #E7E7E7;
+    font-size: 10px;
+    height:80px;
+    text-align: center !important;
+}
+
+.top-dashboard .fa, .dashboard-list .fa {
+        font-size: 30px !important;
+}
+
+/* Side menu list items*/
+.dashboard-list {
+    margin-top: 10px;
+    padding: 10px 5px !important;
+    color: #E7E7E7;
+    font-size: 10px;
+    height: 80px;
+    text-align: center !important;
+}
+
+.nav-side-menu .side-list > li > a:hover {
+    background-color: #2a3f54 !important;
+    color: #fbfbfb;
+}
+
+.nav-side-menu .side-list > li.active {
+    border-left: 5px solid #1ABB9C;
+    height:auto;
+}
+
+
+/* Top menu*/
+.navbar-inverse .navbar-nav>.open>a .caret, .navbar-inverse .navbar-nav>.open>a:hover .caret, .navbar-inverse .navbar-nav>.open>a:focus .caret{
+    border-top-color:black !important;
+    border-bottom-color:black !important;
+    
+}
+.navbar-inverse .navbar-nav>li>a .caret, .navbar-inverse .navbar-nav>li>a:hover .caret, .navbar-inverse .navbar-nav>li>a:focus .caret{
+    border-top-color:black !important;
+    
+}
+
+
+.navbar-inverse .navbar-nav > li > a {
+    color: black !important;
+    font-size: 13px;
+    font-weight: 500;
+}
+    .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse .navbar-nav > li > a:hover {
+        color: black !important;
+        font-size: 13px;
+        font-weight: 500;
+    }
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse .navbar-nav > .open > a:hover {
+    background-color: #D9DEE4 !important;
+    font-size: 13px;
+    font-weight: 500;
+    color: #5A738E !important;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+/*Body content*/
+.body-contents {
+    background: #F7F7F7;
+    color: #73879C;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.content {
+    margin-left: 70px !important;
+    margin-top: 50px !important;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 20px !important;
+    background: #F7F7F7;
+    color: #73879C;
+    font-size: 13px;
+    font-weight: 500;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.tile-first{
+    padding-bottom:30px;
+}
+.tile-list{
+    height:65px;
+    padding-left:10px;
+    border-left: 2px solid #ADB2B5;
+    padding-bottom:30px;
+}
+.tile-value {
+    color: #1ABB9C;
+    font-size:40px;
+    font-weight:600;
+}
+
+/* Graph*/
+.dashboard-graph {
+    background: #fff;
+    padding: 7px 10px;
+    border-bottom: 2px solid #E6E9ED;
+}
+
+h3{
+    font-weight:400;
+}
+
+/*Employee Card*/
+.toggle-card a , .toggle-card a:hover, .toggle-card a:focus {
+    padding-top:25px;
+    color: #C5C7CB;
+    font-size: 13px;
+    cursor:pointer;
+}
+
+.dashboard-card {
+    background: #fff;
+    padding: 7px 10px;
+    border-bottom: 2px solid #E6E9ED;
+}
+
+table.employeetable {
+    width: 100%;
+    border-bottom: 2px solid #E6E9ED;
+
+}
+
+table.employeetable > thead > tr > th {
+        border-bottom: 2px solid #E6E9ED;
+}
+
+#collapse1 {
+    overflow-y: scroll;
+    height:273px;
+}
+/* 
+Max width before this PARTICULAR table gets nasty
+This query will take effect for any screen smaller than 760px
+and also iPads specifically.
+*/
+@media only screen and (max-width: 540px) {
+
+     /* Force table to not be like tables anymore */
+  .size-response table,.size-response thead,.size-response tbody,.size-response th,.size-response td,.size-response tr {
+        display: block;
+    }
+    /* Zebra striping */
+   .size-response tr:nth-of-type(odd) { 
+        background: #eee; 
+        }
+        /* Hide table headers (but not display: none;, for accessibility) */
+       .size-response thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+  .size-response tr {
+        border: 1px solid #ccc;
+    }
+
+table.table.table-hover.table-responsive.size-response td{
+       /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left:50%;       
+		white-space: normal;
+		text-align:left;
+    }
+
+  .size-response td:before {
+           /* Now like a table header */
+            position:absolute;
+          /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+             width: 45%;
+            padding-right: 10px;
+            white-space: nowrap;
+		  /* text-align:left;*/
+		    font-weight: bold;
+         }
+   /*Label the data*/
+       .size-response td:before { 
+           content: attr(data-title);
+
+       }
+       
+}
+@media only screen and (max-width: 990px)
+{
+    .tile-first{
+        border-left: 2px solid #ADB2B5; 
+        padding-bottom:0px;
+    }
+    .tile-list {
+        padding-top:0px;
+    }
+}
+@media only screen and (max-width: 350px) {
+
+     /* Force table to not be like tables anymore */
+  .size-response table,.size-response thead,.size-response tbody,.size-response th,.size-response td,.size-response tr {
+        display: block;
+    }
+    /* Zebra striping */
+   .size-response tr:nth-of-type(odd) { 
+        background: #eee; 
+        }
+        /* Hide table headers (but not display: none;, for accessibility) */
+       .size-response thead tr {
+            position: absolute;
+            top: -9999px;
+            left: -9999px;
+        }
+
+  .size-response tr {
+        border: 1px solid #ccc;
+    }
+.size-response td {
+        font-size:10px;
+    }
+table.table.table-hover.table-responsive.size-response td{
+       /* Behave  like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left:50%;       
+		white-space: normal;
+		text-align:left;
+    }
+
+  .size-response td:before {
+           /* Now like a table header */
+            position:absolute;
+          /* Top/left values mimic padding */
+            top: 6px;
+            left: 6px;
+             width: 45%;
+            padding-right: 10px;
+		    font-weight: bold;
+         }
+   /*Label the data*/
+       .size-response td:before { 
+           content: attr(data-title);
+
+       }
+        
+       
+}

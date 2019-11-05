@@ -1,0 +1,174 @@
+﻿@using Skillset_PL.ViewModels;
+@{
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+    ViewBag.Title = "Dashboard";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+    <link href='https://fonts.googleapis.com/css?family=Black Ops One' rel='stylesheet' type='text/css'>
+
+    <link href="~/Content/Site.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width" />
+    <script type="text/javascript" src="~/Scripts/LoadMore.js"></script>
+    <script>
+
+        var BarChartData =
+        {
+            labels: [@Html.Raw(ViewBag.SkillnameExcludeList)],
+            datasets: [{
+                label: 'Skill Ratings Average',
+                backgroundColor: "rgba(42, 63, 84, 1.0)",
+
+
+                borderWidth: 2,
+                data: [@ViewBag.RatingAverage]
+            }]
+        };
+
+        window.onload = function () {
+
+            var ctx1 = document.getElementById("Barcanvas").getContext("2d");
+            window.myBar1 = new Chart(ctx1,
+                {
+                    type: 'bar',
+                    data: BarChartData,
+                    options:
+                    {
+                        title:
+                        {
+                            display: true,
+                            text: ""
+                        },
+                        scales:
+                        {
+                            yAxes:
+                            [{
+                                ticks: {
+                                    beginAtZero: true
+                                }
+                            }],
+                            xAxes: [{
+                                // Change here
+                                barPercentage: 0.2
+                            }]
+                        },
+                        responsive: true,
+                        maintainAspectRatio: true
+                    }
+                });
+
+        }
+    </script>
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-4 tile-first">
+            <span class="tile-top"><i class="fa fa-user"></i>Total Employees</span>
+            <div class="tile-value">@(ViewBag.TotalEmployees)</div>
+        </div>
+        <div class="col-md-4 tile-list">
+            <span class="tile-top"><i class="fa fa-lightbulb-o"></i>Total Skills</span>
+            <div class="tile-value">@(ViewBag.TotalSkills)</div>
+        </div>
+
+        <div class="col-md-4 tile-list">
+            <span class="tile-top"><i class="fa fa-star"></i>Total Ratings</span>
+            <div class="tile-value">@(ViewBag.TotalSkillRatingsCount)</div>
+        </div>
+    </div>
+
+    @* Chart *@
+    <div class="row">
+        <div class="col-md-8 ">
+            <div class="dashboard-graph">
+                <div class="row graph-title">
+                    <div class="col-md-12" style="padding-top:12px;padding-bottom:12px">
+                        <h3>Average Ratings</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12" style="background:white;">
+                <div>
+                    <canvas id="Barcanvas"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="dashboard-card">
+                <div class="row card-title">
+                    <div class="col-md-8">
+                        <h3 data-tooltip="Employees who have rated 5 star for skills" data-tooltip-position="bottom">Top Skilled</h3>
+                        @using (Html.BeginForm("Index", "Dashboard", FormMethod.Get))
+                        {
+                            <div class="row" style="margin-left:0px">
+                                <div class="col-md-8" style="padding:0px">
+                                    @Html.Editor("search", null, new { htmlAttributes = new { @class = "form-control", @placeholder = "Employee/Skill" } })
+                                </div>
+                                <div class="col-md-4" style="padding-right:0px;padding-left:5px">
+                                    <button type="submit" name="submit" class="btn" style="background-color:white;color:#2a3f54;font-size:20px;" data-tooltip="Search Employee/Skill" data-tooltip-position="bottom">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                    @*<a href="@Url.Action("Index")" data-tooltip="Search Employee/Skill" data-tooltip-position="bottom" style="background-color:white;color:#2a3f54;font-size:20px;" class="btn"><div class="fa fa-search"></div></a>*@
+                                    <a href="@Url.Action("Index")" data-tooltip="Refresh Search" data-tooltip-position="bottom" style="background-color:white;color:#2a3f54;font-size:20px;" class="btn"><div class="fa fa-refresh"></div></a>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-4 toggle-card">
+                        <a class="toggle-button" style="float:right;"><i class="classi fa fa-chevron-up"></i></a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-12" style="background:white;padding-left: 0px;padding-right: 0px;" id="show">
+                <div id="collapse1">
+                    <table class="employeetable table table-hover table-responsive" style="margin-bottom:10px">
+                        <thead style="background-color: #2a3f54;color: white;">
+                            <tr>
+                                <th style="font-weight:bold;font-size:16px">Employee Name</th>
+                                <th style="font-weight:bold;font-size:16px">Skill</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            @if ((ViewBag.TopSkillsTableData != null))
+                            {
+                                foreach (var group in ViewBag.TopSkillsTableData)
+                                {
+                                    
+                                        <tr class="blogBox">
+                                            <td>@group.Key</td>
+                                            <td>
+                                                @foreach (var item in group.Values)
+                                                {
+                                                    @item
+                                                    <br />
+                                                }
+                                            </td>
+                                        </tr>
+                                   
+
+                                }
+                              
+                            }
+                            @if (ViewBag.TopSkillsTableData.Count <= 0)
+                            {
+                                <tr>
+                                    <td style="color:#2a3f54"><strong>No employees with top skill ratings!</strong></td>
+                                    <td></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</body>
+</html>

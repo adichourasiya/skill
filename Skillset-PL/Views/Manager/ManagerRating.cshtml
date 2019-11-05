@@ -1,0 +1,156 @@
+﻿@model Skillset_PL.ViewModels.EmployeeRatingScreenViewModel
+
+@{
+    ViewBag.Title = "Rate Skills";
+    Layout = "~/Views/Manager/_ManagerLayout.cshtml";
+}
+<head>
+    <link href="~/Content/Layout.css" rel="stylesheet" />
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://ajax.cdnjs.com/ajax/libs/json2/20110223/json2.js"></script>
+    <script src="~/Scripts/SkillRating.js"></script>
+    <link href="~/Content/RatingStyle.css" rel="stylesheet" />
+</head>
+@if (ViewBag.IsSpecial != null)
+{
+    <script type="text/javascript">
+
+        $(function ()
+{
+
+            EnableSpecial(@ViewBag.IsSpecial.ToString().ToLower());
+        });
+    </script>
+}
+<div class="row first" style="background-color:white;padding:30px;padding-top:30px;margin:10px;">
+    <label class="control-label alert-success well-sm" style="display:block;text-align:center;background-color:#2a3f54;color:#FFF;font-size:15px;">Rate Your Skills</label>
+    <div class="row">
+        <div class="col-sm-7">
+            <div class="panel-heading" style="display:block;background-color:#2a3f54;color:#FFF;">
+                <b>Skills</b>
+
+
+                <div id="loading" style="float:right;"> </div>
+
+            </div>
+
+
+
+            <div id="snackbar" class="img-responsive">
+                Succesfully added rating
+            </div>
+            <div id="snackbarValidation">
+            </div>
+            @if (Model.RatedSkills.Count() > 0)
+            {
+                foreach (var item in Model.RatedSkills)
+                {
+                    <div class="Ratecard">
+                        <div style="float:right;">
+                            <button class="glyphicon glyphicon-remove delete" id="@item.Id" onclick="DeleteRating(@item.Id)"></button>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6" style="margin-left:20px;">
+                                <h4>
+                                    <b style="color:#2a3f54;">
+                                        @Html.DisplayFor(modelItem => item.SkillName)
+                                    </b>
+                                </h4>
+                                <p style="color:black;">
+                                    @Html.DisplayFor(modelItem => item.SkillDescription)
+                                </p>
+
+
+
+                            </div>
+                            <div class="col-sm-5" style="color:grey;">
+
+                                <div class="str" id="StarRower " onmouseout="CRateSelected(@item.SkillId,@item.RatedValue)" style="margin-left:20px;margin-top:10px;min-width:120px;">
+                                    <input id="Rating_@item.SkillId" value="@item.RatedValue" hidden />
+                                    @for (var i = 1; i <= item.RatedValue; i++)
+                                    {
+
+
+                                        <span class="starGlow" id="Rate_@i @item.SkillId" onclick="CRate(@item.SkillId, @i)" onmouseover="CRateOver(@item.SkillId,@i)" onmouseout="CRateOut(@item.SkillId,@i)" data-tooltip="" data-tooltip-position="bottom"></span>
+                                    }
+                                    @for (var i = (item.RatedValue + 1); i <= 5; i++)
+                                    {
+
+
+                                        <span class="starFade" id="Rate_@i @item.SkillId" onclick="CRate(@item.SkillId, @i)" onmouseover="CRateOver(@item.SkillId,@i)" onmouseout="CRateOut(@item.SkillId,@i)" data-tooltip="" data-tooltip-position="bottom"></span>
+                                    }
+
+                                </div>
+
+                                <textarea class="txtSkill" id="TxtAra_@item.SkillId" required style=" margin:10px;">@item.RatedNote</textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <br />
+                }
+            }
+            @foreach (var item in Model.SkillRatings)
+            {
+
+                <div class="Ratecard">
+                    <div class="row">
+
+                        <div class="col-sm-6" style="margin-left:20px;">
+                            <h4>
+                                <b style="color:#2a3f54;">
+                                    @Html.DisplayFor(modelItem => item.SkillName)
+                                </b>
+                            </h4>
+                            <p style="color:black;">
+                                @Html.DisplayFor(modelItem => item.SkillDescription)
+                            </p>
+
+
+
+                        </div>
+                        <div class="col-sm-5" style="color:grey;">
+
+                            <div class="str" id="StarRower " onmouseout="CRateSelected(@item.skillId)" style="margin-left:20px;margin-top:10px;min-width:120px;">
+                                <input id="Rating_@item.skillId" hidden />
+                                @for (var i = 1; i <= 5; i++)
+                                {
+
+
+                                    <span class="starFade" id="Rate_@i @item.skillId" onclick="CRate(@item.skillId, @i)" onmouseover="CRateOver(@item.skillId,@i)" onmouseout="CRateOut(@item.skillId,@i)" data-tooltip="Not so good" data-tooltip-position="bottom"></span>
+
+                                }
+
+                            </div>
+                            <textarea class="txtSkill" id="TxtAra_@item.skillId" placeholder="Enter your notes here" required style=" margin:10px;"></textarea>
+
+                        </div>
+
+                    </div>
+                </div>
+                    <br />
+            }
+
+
+            <br /><br />
+
+            @{var data = @Html.Raw(Json.Encode(Model));
+                var count1 = @Model.RatedSkills.Count();
+                var count2 = @Model.SkillRatings.Count();
+                <input type="button" class="btn btn-info" style="background-color:#1abb9c;border-color:rgb(26, 187, 156);" onclick='SubmitRating(@data,@count1,@count2)' value="Submit Ratings">
+
+                <input type="button" class="btn btn-info " style="background-color:#2a3f54;border-color:#2a3f54;margin-bottom:20px;" onclick='Reload()' value="Reset">
+            }
+
+        </div>
+
+
+
+
+    </div>
+</div>

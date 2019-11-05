@@ -1,0 +1,27 @@
+﻿.card {
+    /* Add shadows to create the "card" effect */
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
+    margin-left:20px;
+    margin-top:10px;
+    width:190px;
+}
+
+/* Add some padding inside the card container */
+.container {
+    padding: 2px 16px;
+    margin-left:5px;
+    height: 138px;
+}
+.progress
+{
+     width:150px;
+     height:10px;
+}
+
+
+@media (max-width: 767px) {
+    .card{
+       width:250px;
+       margin-left:0px;
+    }
+}

@@ -1,0 +1,51 @@
+﻿@model Skillset_PL.ViewModels.SkillViewModel
+
+@{
+    ViewBag.Title = "Delete";
+}
+<link href="~/Content/theme.css" rel="stylesheet" />
+<script src="~/Scripts/Skill.js"></script>
+<div class="row first">
+    <p style="color:red"> @ViewBag.message </p>
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+        @*<div class="panel-group">
+            <div class="panel panel-success">
+                <div class="panel-heading" style="display:block;text-align:center;background-color:#2a3f54;color:#FFF;">Employee Details</div>
+                <div class="panel-body">*@
+
+        <label class="control-label alert-success well-sm" style="display:block;text-align:center;background-color:#2a3f54;color:#FFF;font-size:15px;">Delete Skill</label>
+        <div class="well" style="background-color:#fff">
+            <div class="row">
+                <table class="table-responsive profileborder" style="width: 100%">
+                    <tr>
+                        <td style="width:5%"><span class="fa fa-lightbulb-o"></span></td>
+                        <td>Skill Name: </td>
+                        <td class="info">@Model.SkillName</td>
+                    </tr>
+                    <tr>
+                        <td style="width:5%"><span class="fa fa-align-justify"></span></td>
+                        <td>Skill Description: </td>
+                        <td class="info">@Model.SkillDescription</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-6">
+            <a href="javascript:history.back()" name="Back" value="Back" class="btn btn-aqua">Cancel</a>
+            &nbsp; &nbsp;
+            <input type="submit" value="Delete" class="btn btn-green"  />
+        </div>
+    </div>
+}
